@@ -256,7 +256,7 @@ function normalize_paths() {
   // images
   $(ditto.content_id + " img").map(function() {
     var src = $(this).attr("src").replace("./", "");
-    if ($(this).attr("src").slice(0, 5) !== "http") {
+    if ($(this).attr("src").slice(0, 4) !== "http") {
       var pathname = location.pathname.substr(0, location.pathname.length - 1);
       var url = location.hash.replace("#", "");
 
@@ -320,7 +320,8 @@ function router() {
   var loading = show_loading();
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    $(ditto.content_id).html(marked(data) + disqusCode);
+    //var ddddtttt =marked(data);
+    $(ditto.content_id).html(marked(data)+ disqusCode);
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
     } else {
@@ -328,11 +329,11 @@ function router() {
     }
     normalize_paths();
     create_page_anchors();
-
     // 完成代码高亮
-    $('#content code').map(function() {
-      Prism.highlightElement(this);
-    });
+      prettyPrint();
+    //$('#content code').map(function() {
+      ////Prism.highlightElement(this);
+    //});
 
     // 加载disqus
     (function() {
